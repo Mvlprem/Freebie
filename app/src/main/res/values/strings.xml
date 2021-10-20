@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Freebie</string>
+
+    <!-- Bottom Navigation Menu Strings -->
+    <string name="menu">Platform</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
+
+    <!-- preview text -->
+    <string name="title_preview">Tom Clancy\'s Ghost Recon WildLands - Fallen Ghosts DLC</string>
+    <string name="typeText_preview">DLC &amp; Loot</string>
+
+    <!-- Chip Text Strings -->
+    <string name="steam">Steam</string>
+    <string name="epic">Epic Games</string>
+    <string name="ubisoft">Ubisoft</string>
+    <string name="origin">Origin</string>
+    <string name="playstation">Play Station</string>
+    <string name="xbox">Xbox</string>
+
+    <!-- Custom Strings -->
+    <string name="networkError">OOPS! NO INTERNET</string>
+    <string name="noGames">No active giveaways available at the moment, please try again later.</string>
+    <string name="description">Description</string>
+    <string name="instructions">Instructions</string>
+    <string name="view_giveaway">view giveaway</string>
+    <string name="theme">Theme</string>
+    <string name="Default">Default</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
+</resources>

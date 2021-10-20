@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.mvlprem.freebie.ui.SharedViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.fragments.DetailFragment">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/eight_dp"
+                android:layout_marginTop="@dimen/eight_dp"
+                android:layout_marginEnd="@dimen/eight_dp"
+                app:image="@{viewModel.game}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="?shapeAppearanceMediumComponent"
+                tools:src="@drawable/ic_home" />
+
+            <TextView
+                android:id="@+id/typeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/six_dp"
+                android:layout_marginEnd="@dimen/six_dp"
+                android:background="@drawable/round_corners"
+                android:fontFamily="sans-serif-medium"
+                android:padding="@dimen/four_dp"
+                android:textAppearance="?textAppearanceCaption"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@id/worth"
+                app:layout_constraintTop_toBottomOf="@id/titleText"
+                app:type="@{viewModel.game}"
+                tools:text="@string/typeText_preview" />
+
+            <TextView
+                android:id="@+id/worth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/six_dp"
+                android:layout_marginEnd="@dimen/six_dp"
+                android:background="@drawable/round_corners"
+                android:fontFamily="sans-serif-medium"
+                android:padding="@dimen/four_dp"
+                android:textAppearance="?textAppearanceCaption"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@id/image"
+                app:layout_constraintTop_toBottomOf="@id/titleText"
+                app:worth="@{viewModel.game}"
+                tools:text="@string/typeText_preview" />
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/six_dp"
+                android:fontFamily="sans-serif-medium"
+                android:textAlignment="center"
+                android:textAppearance="?textAppearanceSubtitle1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image"
+                app:title="@{viewModel.game}"
+                tools:text="@string/title_preview" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/eight_dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="@string/description"
+                android:textAppearance="?textAppearanceHeadline5"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/image"
+                app:layout_constraintTop_toBottomOf="@id/typeText" />
+
+            <TextView
+                android:id="@+id/descriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/eight_dp"
+                android:fontFamily="sans-serif-light"
+                android:textAppearance="?textAppearanceSubtitle1"
+                app:description="@{viewModel.game}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                tools:text="@string/title_preview" />
+
+            <TextView
+                android:id="@+id/instructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/eight_dp"
+                android:layout_marginTop="@dimen/eight_dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="@string/instructions"
+                android:textAppearance="?textAppearanceHeadline5"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/image"
+                app:layout_constraintTop_toBottomOf="@id/descriptionText" />
+
+            <TextView
+                android:id="@+id/instructionsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/eight_dp"
+                android:fontFamily="sans-serif-light"
+                android:textAppearance="?textAppearanceSubtitle1"
+                app:instructions="@{viewModel.game}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/instructions"
+                tools:text="@string/title_preview" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/view_button"
+                style="?materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="@dimen/sixteen_dp"
+                android:layout_marginEnd="64dp"
+                android:layout_marginBottom="@dimen/eight_dp"
+                android:text="@string/view_giveaway"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/instructionsText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
