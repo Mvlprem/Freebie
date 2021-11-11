@@ -7,6 +7,10 @@ class FreebieApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        sharedPrefs()
+    }
+
+    private fun sharedPrefs() {
         val sharedPreferences = getSharedPreferences("BTN_STATE", MODE_PRIVATE)
         val value = sharedPreferences.all
         when {

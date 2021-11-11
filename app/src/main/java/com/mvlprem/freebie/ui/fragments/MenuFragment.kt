@@ -17,7 +17,6 @@ import com.mvlprem.freebie.util.Constants.PLAY_STATION
 import com.mvlprem.freebie.util.Constants.STEAM
 import com.mvlprem.freebie.util.Constants.UBISOFT
 import com.mvlprem.freebie.util.Constants.XBOX
-import kotlinx.android.synthetic.main.fragment_menu.*
 
 class MenuFragment : BottomSheetDialogFragment() {
 
@@ -44,12 +43,12 @@ class MenuFragment : BottomSheetDialogFragment() {
          */
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
             val filter = when (group.findViewById<Chip>(checkedId)) {
-                steam_chip -> STEAM
-                ubisoft_chip -> UBISOFT
-                origin_chip -> ORIGIN
-                epic_chip -> EPIC
-                playstation_chip -> PLAY_STATION
-                xbox_chip -> XBOX
+                binding.steamChip -> STEAM
+                binding.ubisoftChip -> UBISOFT
+                binding.originChip -> ORIGIN
+                binding.epicChip -> EPIC
+                binding.playstationChip -> PLAY_STATION
+                binding.xboxChip -> XBOX
                 else -> null
             }
             viewModel.apiQuery(filter)

@@ -11,7 +11,7 @@ import com.mvlprem.freebie.model.Games
 class ViewModelFactory(private val games: Games?, private val application: Application) :
     ViewModelProvider.Factory {
     @Suppress("Unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SharedViewModel::class.java)) {
             return SharedViewModel(games, application) as T
         }

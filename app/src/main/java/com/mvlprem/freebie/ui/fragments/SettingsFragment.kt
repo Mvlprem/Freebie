@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.mvlprem.freebie.R
 import com.mvlprem.freebie.databinding.FragmentSettingsBinding
-import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment() {
 
@@ -41,15 +40,15 @@ class SettingsFragment : Fragment() {
          */
         binding.btnTheme.addOnButtonCheckedListener { group, checkedId, isChecked ->
             when (group.findViewById<Button>(checkedId)) {
-                btn_dark -> {
+                binding.btnDark -> {
                     setDefaultNightMode(MODE_NIGHT_YES)
                     sharedPrefs("btn_dark", isChecked)
                 }
-                btn_light -> {
+                binding.btnLight -> {
                     setDefaultNightMode(MODE_NIGHT_NO)
                     sharedPrefs("btn_light", isChecked)
                 }
-                btn_default -> {
+                binding.btnDefault -> {
                     setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
                     sharedPrefs("btn_default", isChecked)
                 }

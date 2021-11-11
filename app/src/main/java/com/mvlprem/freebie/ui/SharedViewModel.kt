@@ -63,15 +63,12 @@ class SharedViewModel(games: Games?, application: Application) : AndroidViewMode
      */
     private fun apiCall(platform: String?) {
         viewModelScope.launch {
-            val response = try {
-                RetrofitInstance.api.getGames(platform)
-            } catch (e: Exception) {
-                apiResponseError.value = true
-                return@launch
-            }
-            if (response.isSuccessful) {
+            try {
+                apiResponse.value = RetrofitInstance.api.getGames(platform)
                 apiResponseError.value = false
-                apiResponse.value = response.body()
+            } catch (e: Exception) {
+                apiResponse.value = ArrayList()
+                apiResponseError.value = true
             }
         }
     }
