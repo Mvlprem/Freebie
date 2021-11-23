@@ -1,8 +1,8 @@
 package com.mvlprem.freebie.util
 
 /**
- * Constant values
- * like Base Url & api query params
+ * Constant values of
+ * Base Url & api queries
  */
 object Constants {
     const val BASE_URL = "https://www.gamerpower.com/api/"

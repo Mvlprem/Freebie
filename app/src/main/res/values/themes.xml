@@ -67,13 +67,6 @@
         <item name="colorPrimary">@color/white</item>
     </style>
 
-    <!-- Splash Screen -->
-    <style name="Theme.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/lightBlue</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-    </style>
-
     <!-- SnackBar Theme -->
     <style name="Widget.App.Snackbar" parent="Widget.MaterialComponents.Snackbar">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Snackbar</item>

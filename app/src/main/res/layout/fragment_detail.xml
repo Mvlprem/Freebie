@@ -23,17 +23,18 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/eight_dp"
-                android:layout_marginTop="@dimen/eight_dp"
-                android:layout_marginEnd="@dimen/eight_dp"
+                android:layout_width="@dimen/zero_dp"
+                android:layout_height="@dimen/zero_dp"
+                android:layout_margin="@dimen/eight_dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 app:image="@{viewModel.game}"
+                app:layout_constraintDimensionRatio="16:9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="?shapeAppearanceMediumComponent"
-                tools:src="@drawable/ic_home" />
+                tools:src="@drawable/broken_image" />
 
             <TextView
                 android:id="@+id/typeText"
@@ -133,13 +134,13 @@
                 tools:text="@string/title_preview" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/view_button"
+                android:id="@+id/view_giveaway"
                 style="?materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="64dp"
+                android:layout_marginStart="@dimen/sixtyFour_dp"
                 android:layout_marginTop="@dimen/sixteen_dp"
-                android:layout_marginEnd="64dp"
+                android:layout_marginEnd="@dimen/sixtyFour_dp"
                 android:layout_marginBottom="@dimen/eight_dp"
                 android:text="@string/view_giveaway"
                 app:layout_constraintBottom_toBottomOf="parent"

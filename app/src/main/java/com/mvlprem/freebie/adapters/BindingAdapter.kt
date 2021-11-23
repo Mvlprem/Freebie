@@ -5,10 +5,14 @@ import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.mvlprem.freebie.R
 import com.mvlprem.freebie.model.Games
 
 /**
- * These adapters populate views with respective data
+ * These adapters populate views with respective data.
+ * Use the value("title") to call this extinction function in xml
+ * @param item model data Class
  */
 
 @BindingAdapter("title")
@@ -47,7 +51,9 @@ fun TextView.gameInstructions(item: Games) {
 }
 
 /**
- * Fun using Glide library to load the uri into imageview.
+ * Function using Glide library to load the uri into imageview.
+ * @param imageView to provide context for Glide
+ * @param item model data Class
  */
 @BindingAdapter("image")
 fun gameImage(imageView: ImageView, item: Games) {
@@ -56,6 +62,11 @@ fun gameImage(imageView: ImageView, item: Games) {
         val uri = url.toUri().buildUpon().scheme("https").build()
         Glide.with(imageView.context)
             .load(uri)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.broken_image)
+            )
             .into(imageView)
     }
 }

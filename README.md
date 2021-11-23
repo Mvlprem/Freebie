@@ -3,7 +3,7 @@ Access the best giveaways in gaming, from free games to beta keys to free in-gam
 
 * Clean Architecture With **MVVM**
 
-* [Gamerpower](https://www.gamerpower.com/) - the source of every displayed game in the app.
+* [GamerPower](https://www.gamerpower.com/) - the source of every displayed game in the app.
 
 * [Retrofit](https://square.github.io/retrofit/) - used for networking.
 
@@ -11,7 +11,7 @@ Access the best giveaways in gaming, from free games to beta keys to free in-gam
 
 * [Material Components](https://material.io/components/) - used for creating user interface.
 
-* **Shared Preferences** - used for storing user theme preferences.
+* [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) - used for storing user theme preferences.
 
 ## Screenshots
 

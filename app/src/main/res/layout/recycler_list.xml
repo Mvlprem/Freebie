@@ -31,15 +31,16 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/srcImage"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/zero_dp"
                 android:layout_height="@dimen/zero_dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
                 app:image="@{games}"
                 app:layout_constraintDimensionRatio="16:9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_home" />
+                tools:src="@drawable/broken_image" />
 
             <TextView
                 android:id="@+id/titleText"

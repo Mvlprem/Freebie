@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
- *  Returns list of Games.
+ *  A Retrofit service to fetch a list of Games.
  */
 interface GamesApi {
     @GET("giveaways")

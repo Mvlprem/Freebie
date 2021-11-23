@@ -7,4 +7,5 @@
     <dimen name="six_dp">6dp</dimen>
     <dimen name="eight_dp">8dp</dimen>
     <dimen name="sixteen_dp">16dp</dimen>
+    <dimen name="sixtyFour_dp">64dp</dimen>
 </resources>

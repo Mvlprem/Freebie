@@ -4,49 +4,74 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.mvlprem.freebie.FreebieApplication
 import com.mvlprem.freebie.api.RetrofitInstance
+import com.mvlprem.freebie.data.DataStore
 import com.mvlprem.freebie.model.Games
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SharedViewModel(games: Games?, application: Application) : AndroidViewModel(application) {
+class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
     /**
-     * Data coming through navigation to
-     * Detail fragment
+     * Creating DataStore by passing { application } as context
      */
-    private val gameData = MutableLiveData<Games>(games)
+    private val datastore = DataStore(application)
+
+    /**
+     * Gets the value stored in [DataStore] in the form of Flow<Int> and
+     * converting as [LiveData] by calling { asLiveData() } on it so it
+     * can be observed.
+     */
+    val readFromDataStore = datastore.read.asLiveData()
+
+    /**
+     * Stores user selected theme in DataStore by calling [DataStore.save]
+     * since it's a suspend function it needs to be called in coroutine scope
+     * @param value selected theme
+     */
+    fun saveToDataStore(value: Int) = viewModelScope.launch(Dispatchers.IO) {
+        datastore.save(value)
+    }
+
+    /**
+     * stores the [Games] [List] from { DetailFragmentArgs }
+     * MutableLiveData, because we will be updating the List with new values
+     */
+    private val gameData = MutableLiveData<Games>()
     val game: LiveData<Games> = gameData
 
     /**
-     * api response data
+     * stores the [Games] [List] from retrofit service
+     * MutableLiveData, because we will be updating the List with new values
      */
     private val apiResponse = MutableLiveData<List<Games>>()
     val response: LiveData<List<Games>> = apiResponse
 
     /**
-     * api response Error
+     * stores the status of api response error
      */
     private val apiResponseError = MutableLiveData<Boolean>()
     val responseError: LiveData<Boolean> = apiResponseError
 
     /**
-     * user network results
+     * stores the status of user network connectivity
      */
     private val userNetworkState = MutableLiveData<Boolean>()
     val networkState: LiveData<Boolean> = userNetworkState
 
+    /**
+     * Calling { apiQuery() } on init so we can display immediately
+     */
     init {
         apiQuery(null)
     }
 
     /**
-     * Network Check before performing api call
-     *
+     * Gets network connectivity status from { isNetworkConnected() } and
+     * calls [apiQuery] if network found
+     * updates [userNetworkState] [Boolean]
      */
     fun apiQuery(filter: String?) {
         if (isNetworkConnected()) {
@@ -58,8 +83,18 @@ class SharedViewModel(games: Games?, application: Application) : AndroidViewMode
     }
 
     /**
-     * Performing Api Call & Retrieving data
-     * Takes in a query param which is null by default
+     * Gets information from the { DetailFragmentArgs } and
+     * updates the [gameData] [List]
+     * @param game game that has been clicked in recycler list.
+     */
+    fun fragmentArgs(game: Games) {
+        gameData.value = game
+    }
+
+    /**
+     * Gets filtered [Games] information from the API Retrofit service
+     * updates the [apiResponse] [List] and [apiResponseError] [Boolean]
+     * @param platform sent as part of the web server request, null by default
      */
     private fun apiCall(platform: String?) {
         viewModelScope.launch {
@@ -74,7 +109,9 @@ class SharedViewModel(games: Games?, application: Application) : AndroidViewMode
     }
 
     /**
-     * Getting network details
+     * Checks user's network connectivity when called
+     * need ACCESS_NETWORK_STATE permission in Manifest
+     * @return Boolean
      */
     private fun isNetworkConnected(): Boolean {
         val connectivityManager =

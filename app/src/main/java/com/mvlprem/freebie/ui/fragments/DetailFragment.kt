@@ -1,7 +1,5 @@
 package com.mvlprem.freebie.ui.fragments
 
-import android.annotation.SuppressLint
-import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,53 +8,49 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.mvlprem.freebie.R
 import com.mvlprem.freebie.databinding.FragmentDetailBinding
 import com.mvlprem.freebie.model.Games
 import com.mvlprem.freebie.ui.SharedViewModel
-import com.mvlprem.freebie.ui.ViewModelFactory
 
+/**
+ * Displays detailed information about a selected piece of [Games].
+ * which it gets as a Parcelable property through Jetpack Navigation's SafeArgs.
+ */
 class DetailFragment : Fragment() {
 
-    /**
-     * Fields
-     */
     private lateinit var binding: FragmentDetailBinding
-    private lateinit var application: Application
     private lateinit var game: Games
-    private val viewModel: SharedViewModel by viewModels {
-        ViewModelFactory(
-            game,
-            application
-        )
-    }
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
-
-    @SuppressLint("QueryPermissionsNeeded")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+
         binding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_detail, container, false)
-        application = requireNotNull(this.activity).application
+
+        /**
+         * Gets selected [game] through Navigation's SafeArgs
+         */
         game = DetailFragmentArgs.fromBundle(requireArguments()).game
+        /**
+         * Passing safeargs [game] to [sharedViewModel]
+         */
+        sharedViewModel.fragmentArgs(game)
+
+        binding.viewModel = sharedViewModel
 
         /**
-         * bindind variable to viewModel
+         * Click listener for { viewGiveaway } button in { fragment_detail.xml }
+         * opens displayed [game] in available web browser using intent
          */
-        binding.viewModel = viewModel
-
-        /**
-         * view_giveaway button onclick listener
-         * opens giveaway links in available web browser
-         */
-        binding.viewButton.setOnClickListener {
+        binding.viewGiveaway.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(viewModel.game.value?.openGiveaway)
-            if (intent.resolveActivity(application.packageManager) != null) {
+            intent.data = Uri.parse(game.openGiveaway)
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
                 startActivity(intent)
             }
         }

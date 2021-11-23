@@ -10,6 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.mvlprem.freebie.R
 import com.mvlprem.freebie.databinding.FragmentMenuBinding
+import com.mvlprem.freebie.model.Games
 import com.mvlprem.freebie.ui.SharedViewModel
 import com.mvlprem.freebie.util.Constants.EPIC
 import com.mvlprem.freebie.util.Constants.ORIGIN
@@ -18,28 +19,26 @@ import com.mvlprem.freebie.util.Constants.STEAM
 import com.mvlprem.freebie.util.Constants.UBISOFT
 import com.mvlprem.freebie.util.Constants.XBOX
 
+/**
+ * [MenuFragment] as BottomSheetDialog
+ * Displays available retrofit query values
+ */
 class MenuFragment : BottomSheetDialogFragment() {
 
-    /**
-     * Fields
-     */
     private lateinit var binding: FragmentMenuBinding
-    private val viewModel: SharedViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        /**
-         * Inflate the layout for this fragment
-         */
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_menu, container, false)
 
         /**
-         * Checked listener for chips
-         * when checked passing query param to the
-         * apiQuery fun in sharedViewModel
+         * Checked listener for chips in { fragment_menu.xml }
+         * when checked passes query value to
+         * { apiQuery() } function in [sharedViewModel]
          */
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
             val filter = when (group.findViewById<Chip>(checkedId)) {
@@ -51,7 +50,7 @@ class MenuFragment : BottomSheetDialogFragment() {
                 binding.xboxChip -> XBOX
                 else -> null
             }
-            viewModel.apiQuery(filter)
+            sharedViewModel.apiQuery(filter)
         }
 
 

@@ -7,17 +7,24 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 /**
- * generates an implementation of the GamesApi interface.
+ * Main entry point for network access. Call like `RetrofitInstance.api.getGames()`
  */
 class RetrofitInstance {
     companion object {
 
+        /**
+         * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for
+         * full Kotlin compatibility.
+         */
         private val moshi by lazy {
             Moshi.Builder()
                 .add(KotlinJsonAdapterFactory())
                 .build()
         }
 
+        /**
+         * Configure retrofit to parse JSON
+         */
         private val retrofit by lazy {
             Retrofit.Builder()
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
@@ -25,6 +32,9 @@ class RetrofitInstance {
                 .build()
         }
 
+        /**
+         * Generates an implementation of the GamesApi interface.
+         */
         val api: GamesApi by lazy {
             retrofit.create(GamesApi::class.java)
         }

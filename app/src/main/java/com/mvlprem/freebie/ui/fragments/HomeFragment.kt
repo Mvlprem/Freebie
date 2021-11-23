@@ -1,6 +1,5 @@
 package com.mvlprem.freebie.ui.fragments
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,41 +13,28 @@ import com.mvlprem.freebie.R
 import com.mvlprem.freebie.adapters.GameItemClickListener
 import com.mvlprem.freebie.adapters.RecyclerAdapter
 import com.mvlprem.freebie.databinding.FragmentHomeBinding
+import com.mvlprem.freebie.model.Games
 import com.mvlprem.freebie.ui.SharedViewModel
-import com.mvlprem.freebie.ui.ViewModelFactory
 
+/**
+ * Displays list of [Games]
+ */
 class HomeFragment : Fragment() {
 
-    /**
-     * Fields
-     */
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var application: Application
-    private val viewModel: SharedViewModel by activityViewModels {
-        ViewModelFactory(
-            null,
-            application
-        )
-    }
+    private val viewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        /**
-         * Inflate the layout for this fragment
-         */
+
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_home, container, false)
 
         /**
-         * Initializing Fields
-         */
-        application = requireNotNull(this.activity).application
-
-        /**
-         * Attaching adapter to recycler and passing
-         * retrieved api data to adapter by observing the api response
-         * onclick navigates to a detail fragment with item data using parcelable
+         * Adapter for { recyclerview } with clickHandler lambda that
+         * tells when our [Games] item is clicked and
+         * navigates to a [DetailFragment] with selected [Games] data as parcelable
          */
         val adapter = RecyclerAdapter(GameItemClickListener {
             findNavController().navigate(
@@ -57,17 +43,25 @@ class HomeFragment : Fragment() {
                 )
             )
         })
+        /**
+         * Sets the adapter of recyclerview
+         */
         binding.recyclerview.adapter = adapter
+        /**
+         * Observing response and submitting List [Games] to adapter
+         */
         viewModel.response.observe(viewLifecycleOwner, {
             adapter.submitList(it)
         })
 
         /**
-         * The contextView used to make the snackBar
-         * Observing the user network state and
-         * showing a snackBar if user doesn't have a network connection
+         * The contextView is used to make snackBar
          */
         val contextView = binding.recyclerview
+        /**
+         * Observing the networkState and
+         * showing a snackBar if not true
+         */
         viewModel.networkState.observe(viewLifecycleOwner, {
             if (!it)
                 Snackbar.make(
@@ -80,9 +74,8 @@ class HomeFragment : Fragment() {
         })
 
         /**
-         * Handling response Errors
-         * If there is no data from api
-         * hiding recyclerview and showing layout with error msg
+         * observing responseError, on true
+         * hiding recyclerview and showing another layout with error message
          */
         viewModel.responseError.observe(viewLifecycleOwner, {
             binding.apply {

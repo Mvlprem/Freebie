@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 /**
  * Data class with properties that match the JSON response fields
- * it's Parcelable so we can share between fragments
+ * It's Parcelize to share between fragments
  */
 @Parcelize
 data class Games(
